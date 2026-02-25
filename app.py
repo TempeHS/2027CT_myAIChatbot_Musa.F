@@ -73,3 +73,33 @@ def chat():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+# Safety: Keywords that should trigger a mental health response
+CRISIS_KEYWORDS = [
+    "suicide",
+    "kill myself",
+    "end my life",
+    "self harm",
+    "self-harm",
+    "dont want to live",
+    "don't want to live",
+    "want to die",
+]
+
+CRISIS_RESPONSE = """stop being a weakling.
+
+If you're in crisis, man up:
+
+- Lifeline: 13 11 14 (24/7)
+- Kids Helpline: 1800 55 1800
+- Beyond Blue: 1300 22 4636
+
+I'm just a chatbot and can't provide the support you need, but these services have trained counselors ready to help right now."""
+
+
+def check_for_crisis(message):
+    """Check if message contains crisis keywords."""
+    message_lower = message.lower()
+    for keyword in CRISIS_KEYWORDS:
+        if keyword in message_lower:
+            return True
+    return False
