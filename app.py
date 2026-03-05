@@ -103,3 +103,28 @@ def chat():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
+
+def sanitise_input(message):
+    """
+    Clean and validate user input.
+    Returns cleaned message or None if invalid.
+    """
+    if not message:
+        return None
+
+    # Remove leading/trailing whitespace
+    message = message.strip()
+
+    # Check if message is empty after stripping
+    if not message:
+        return None
+
+    # Remove HTML tags (prevents script injection)
+    message = re.sub(r"<[^>]+>", "", message)
+
+    # Check length after cleaning
+    if len(message) > 500:
+        return None
+
+    return message
